@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Little Galaxy — Tanvir & Jim</title>
+
+<style>
+:root {
+  --pink:#ff8fd8;
+  --purple:#a88cff;
+  --cyan:#8cecff;
+  --gold:#ffe5a3;
+}
+
+* {box-sizing:border-box}
+html {scroll-behavior:smooth}
+body {
+  margin:0;
+  background:#070515;
+  color:white;
+  font-family:Georgia,serif;
+  overflow-x:hidden;
+}
+button {font:inherit;cursor:pointer}
+
+#sky {
+  position:fixed;
+  inset:0;
+  z-index:-5;
+  background:
+    radial-gradient(ellipse at 18% 20%,#34205d,transparent 35%),
+    radial-gradient(ellipse at 80% 40%,#1c3665,transparent 32%),
+    radial-gradient(ellipse at 50% 100%,#30123f,transparent 45%),
+    linear-gradient(145deg,#050411,#0c0927,#09051a);
+}
+#stars {
+  position:fixed;
+  inset:0;
+  z-index:-3;
+  pointer-events:none;
+}
+.star {
+  position:absolute;
+  width:2px;
+  height:2px;
+  border-radius:50%;
+  background:white;
+  box-shadow:0 0 8px #bceaff;
+  animation:twinkle var(--t) infinite alternate;
+}
+@keyframes twinkle {
+  from {opacity:.2;transform:scale(.6)}
+  to {opacity:1;transform:scale(1.6)}
+}
+.nebula {
+  position:fixed;
+  width:45vw;
+  height:45vw;
+  border-radius:50%;
+  filter:blur(65px);
+  opacity:.18;
+  pointer-events:none;
+  z-index:-2;
+  animation:drift 20s infinite alternate;
+}
+.n1 {background:#b24bff;left:-15vw;top:20vh}
+.n2 {background:#2eabff;right:-18vw;top:48vh}
+@keyframes drift {
+  to {transform:translate(12vw,-8vh) scale(1.3)}
+}
+
+nav {
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  z-index:10;
+  display:flex;
+  justify-content:center;
+  gap:8px;
+  padding:12px;
+  backdrop-filter:blur(14px);
+  background:#08051b99;
+  border-bottom:1px solid #ffffff20;
+}
+nav a {
+  color:#e9ddff;
+  text-decoration:none;
+  font:12px Arial;
+  letter-spacing:1px;
+  padding:9px 12px;
+  border-radius:30px;
+}
+nav a:hover {background:#ffffff20}
+
+main {width:min(1000px,92vw);margin:auto}
+.hero {
+  min-height:100vh;
+  display:grid;
+  place-items:center;
+  text-align:center;
+  padding:100px 10px 55px;
+}
+.eyebrow {
+  color:var(--cyan);
+  letter-spacing:5px;
+  text-transform:uppercase;
+  font:11px Arial;
+}
+h1 {
+  font-size:clamp(42px,9vw,94px);
+  line-height:.98;
+  background:linear-gradient(100deg,#fff,#ffb9e9,#a9dfff,#fff0bc);
+  background-size:250%;
+  -webkit-background-clip:text;
+  color:transparent;
+  animation:shine 8s linear infinite;
+}
+@keyframes shine {to {background-position:250%}}
+.hero p {
+  max-width:620px;
+  color:#d9d0ed;
+  line-height:1.9;
+  font-size:17px;
+}
+.orbit {
+  width:min(330px,75vw);
+  aspect-ratio:1;
+  border:1px solid #cbb6ff66;
+  border-radius:50%;
+  margin:35px auto;
+  position:relative;
+  box-shadow:0 0 55px #987aff33;
+  animation:orbitGlow 5s infinite alternate;
+}
+.orbit:before,.orbit:after {
+  content:"";
+  position:absolute;
+  border:1px solid #b6eaff66;
+  border-radius:50%;
+  inset:13%;
+  transform:rotate(-25deg) scaleX(1.5);
+}
+.orbit:after {
+  inset:28%;
+  transform:rotate(45deg) scaleX(1.7);
+  border-color:#ffb4e966;
+}
+.planet {
+  position:absolute;
+  width:92px;
+  height:92px;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  border-radius:50%;
+  background:radial-gradient(circle at 30% 25%,white,#b5a5ff 25%,#4d367e 70%,#17102f);
+  box-shadow:0 0 55px #b89aff;
+}
+@keyframes orbitGlow {
+  to {box-shadow:0 0 90px #987aff66,inset 0 0 80px #987aff33}
+}
+
+section {padding:90px 0;position:relative}
+.section-tag {
+  text-align:center;
+  color:var(--cyan);
+  font:11px Arial;
+  letter-spacing:4px;
+  text-transform:uppercase;
+}
+h2 {
+  text-align:center;
+  font-size:clamp(30px,5vw,52px);
+  font-weight:normal;
+  margin:12px 0 38px;
+}
+.card {
+  background:linear-gradient(135deg,#ffffff12,#ffffff05);
+  border:1px solid #ffffff25;
+  border-radius:24px;
+  padding:clamp(22px,5vw,42px);
+  box-shadow:0 20px 70px #0005;
+  backdrop-filter:blur(12px);
+}
+.letter {
+  max-width:760px;
+  margin:auto;
+  line-height:2;
+  font-size:18px;
+  color:#eee6fa;
+}
+.salute {font-size:25px;color:#ffc5e8}
+.signature {
+  color:var(--gold);
+  font-style:italic;
+  text-align:right;
+  margin-top:25px;
+}
+.grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:18px;
+}
+.memory {
+  min-height:190px;
+  cursor:pointer;
+  transition:.35s;
+  position:relative;
+  overflow:hidden;
+}
+.memory:hover {
+  transform:translateY(-7px);
+  border-color:#ffb8e8;
+  box-shadow:0 15px 45px #a45bff33;
+}
+.memory .emoji {font-size:34px}
+.memory h3 {font-weight:normal;color:#ffd0ed;font-size:23px}
+.memory p {color:#d6cde7;line-height:1.7}
+.explore-hint {
+  color:#bdaaff;
+  font:11px Arial;
+  letter-spacing:2px;
+}
+.quote {
+  font-size:clamp(23px,4vw,36px);
+  line-height:1.5;
+  text-align:center;
+  color:#f5d9f0;
+}
+.quote small {
+  display:block;
+  font:11px Arial;
+  letter-spacing:3px;
+  color:#a9dfff;
+  margin-top:20px;
+}
+
+/* Main name reveal */
+#bigReveal {
+  min-height:80vh;
+  display:grid;
+  place-items:center;
+  text-align:center;
+  overflow:hidden;
+}
+.reveal-line {
+  opacity:0;
+  transform:translateY(-130vh) rotate(-8deg);
+  font-family:Arial,sans-serif;
+  font-weight:900;
+  text-shadow:0 0 25px #ff83d5,0 0 60px #8c7bff;
+}
+.reveal-line.show {
+  animation:dropIn 1.35s cubic-bezier(.12,.85,.22,1.15) forwards;
+}
+@keyframes dropIn {
+  0% {opacity:0;transform:translateY(-130vh) rotate(-12deg) scale(.6)}
+  70% {opacity:1;transform:translateY(12px) rotate(2deg) scale(1.08)}
+  85% {transform:translateY(-7px) rotate(-1deg)}
+  100% {opacity:1;transform:translateY(0) rotate(0) scale(1)}
+}
+#equation {font-size:clamp(24px,6vw,62px);margin:22px 0}
+#result {font-size:clamp(38px,10vw,100px);color:#ffd3ef}
+.replay {
+  border:1px solid #ffbce8;
+  background:#ffffff10;
+  color:white;
+  padding:12px 22px;
+  border-radius:30px;
+  margin:12px 5px;
+}
+
+/* Game */
+.game-wrap {text-align:center}
+.game-wrap p {color:#d8cde9;line-height:1.8}
+#game {
+  display:block;
+  width:100%;
+  max-width:650px;
+  height:300px;
+  margin:20px auto;
+  background:radial-gradient(ellipse at 50% 100%,#3b2465,#100d2b 70%);
+  border:1px solid #ffffff35;
+  border-radius:20px;
+  touch-action:manipulation;
+}
+.game-btn {
+  border:0;
+  border-radius:30px;
+  padding:12px 25px;
+  background:linear-gradient(90deg,#c47dff,#ff8fcf);
+  color:#180c2b;
+  font-weight:bold;
+}
+#score {color:var(--gold);font-size:22px}
+
+/* Flowers and ghost */
+.flower {
+  position:fixed;
+  top:-40px;
+  z-index:20;
+  pointer-events:none;
+  animation:fall linear forwards;
+  filter:drop-shadow(0 0 6px #ff9bd8);
+}
+@keyframes fall {
+  to {transform:translate3d(var(--drift),110vh,0) rotate(720deg);opacity:.15}
+}
+.ghost {
+  position:fixed;
+  z-index:4;
+  bottom:10%;
+  left:-80px;
+  font-size:42px;
+  opacity:.65;
+  pointer-events:none;
+  animation:ghostFloat 28s linear infinite;
+}
+@keyframes ghostFloat {
+  0% {transform:translateX(0)}
+  50% {transform:translateX(55vw) translateY(-55px)}
+  100% {transform:translateX(115vw)}
+}
+
+/* Password */
+#lock {
+  position:fixed;
+  inset:0;
+  z-index:50;
+  display:grid;
+  place-items:center;
+  padding:20px;
+  background:radial-gradient(circle at 50% 40%,#34205b,#080516 70%);
+}
+.lockbox {
+  width:min(430px,100%);
+  text-align:center;
+  padding:34px 26px;
+  border:1px solid #ffffff35;
+  border-radius:25px;
+  background:#ffffff0c;
+  backdrop-filter:blur(18px);
+  box-shadow:0 20px 80px #0008;
+}
+.lockicon {font-size:45px}
+.lockbox h2 {margin:12px 0;font-size:32px}
+.lockbox p {color:#d7cbe9;line-height:1.7}
+.lockbox input {
+  width:100%;
+  padding:14px;
+  border-radius:12px;
+  border:1px solid #ffffff55;
+  background:#100b29;
+  color:white;
+  text-align:center;
+  font-size:16px;
+}
+.lockbox button {
+  margin-top:13px;
+  width:100%;
+  padding:13px;
+  border:0;
+  border-radius:12px;
+  background:linear-gradient(90deg,#b68aff,#ff9bd8);
+  font-weight:bold;
+}
+#hint {font-size:12px;min-height:18px}
+
+/* Galaxy explorer and name breakdown pages */
+#explorePage,#breakdownPage {
+  position:fixed;
+  inset:0;
+  z-index:80;
+  display:none;
+  overflow:auto;
+  place-items:center;
+  background:
+    radial-gradient(ellipse at 20% 20%,#6335a9,transparent 38%),
+    radial-gradient(ellipse at 80% 75%,#322078,transparent 40%),
+    linear-gradient(145deg,#09051c,#1c0d3b,#09051c);
+}
+#explorePage.active,#breakdownPage.active {display:grid}
+#explorePage:before,#breakdownPage:before {
+  content:"";
+  position:fixed;
+  inset:-30%;
+  pointer-events:none;
+  background:conic-gradient(from 0deg,transparent,#a56aff33,#ff8fd833,transparent,#8cecff33,transparent);
+  filter:blur(35px);
+  animation:galaxySpin 24s linear infinite;
+}
+@keyframes galaxySpin {to {transform:rotate(360deg)}}
+.explore-shell,.break-shell {
+  position:relative;
+  z-index:1;
+  width:min(850px,92vw);
+  padding:30px 18px;
+  text-align:center;
+}
+.explore-orb {
+  width:145px;
+  height:145px;
+  margin:0 auto 25px;
+  border-radius:50%;
+  background:radial-gradient(circle at 30% 25%,white,#e1baff 12%,#9a5de8 38%,#281052 72%);
+  box-shadow:0 0 35px #bb8cff,0 0 100px #9c58ff88;
+  animation:orbFloat 4s ease-in-out infinite alternate;
+}
+@keyframes orbFloat {
+  to {transform:translateY(-12px) scale(1.06);filter:hue-rotate(25deg)}
+}
+.explore-copy {
+  max-width:650px;
+  margin:20px auto;
+  color:#e9dcff;
+  line-height:2;
+  font-size:18px;
+}
+.close-galaxy {
+  position:relative;
+  z-index:2;
+  border:1px solid #ffffff55;
+  background:#ffffff14;
+  color:white;
+  border-radius:30px;
+  padding:11px 20px;
+  margin:12px;
+}
+#breakdownPage {
+  background:radial-gradient(ellipse at 50% 45%,#5d299d,transparent 48%),linear-gradient(135deg,#080416,#251044,#09051c);
+}
+.purple-glow {
+  position:absolute;
+  width:55vmin;
+  height:55vmin;
+  border-radius:50%;
+  background:#9d55ff33;
+  filter:blur(45px);
+  animation:pulsePurple 3s ease-in-out infinite alternate;
+}
+@keyframes pulsePurple {to {transform:scale(1.35);opacity:.55}}
+.break-title {
+  font:12px Arial;
+  letter-spacing:5px;
+  color:#d9bdff;
+  text-transform:uppercase;
+}
+#letterStage {
+  min-height:330px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:9px;
+  margin:20px 0;
+}
+.drop-row {
+  display:flex;
+  justify-content:center;
+  gap:clamp(5px,2vw,18px);
+  flex-wrap:wrap;
+  min-height:clamp(48px,9vw,90px);
+}
+.drop-letter {
+  display:inline-block;
+  font:900 clamp(38px,9vw,82px)/1 Arial;
+  color:white;
+  text-shadow:0 0 12px #e8caff,0 0 35px #bd7bff,0 0 65px #8c45ff;
+  opacity:0;
+  transform:translateY(-120vh) rotate(-18deg) scale(.6);
+}
+.drop-letter.fall {animation:letterLand 1.05s cubic-bezier(.15,.8,.2,1.18) forwards}
+@keyframes letterLand {
+  0% {opacity:0;transform:translateY(-120vh) rotate(-18deg) scale(.65)}
+  65% {opacity:1;transform:translateY(12px) rotate(4deg) scale(1.12)}
+  82% {transform:translateY(-7px) rotate(-2deg) scale(.98)}
+  100% {opacity:1;transform:translateY(0) rotate(0) scale(1)}
+}
+.word-result {
+  font:900 clamp(35px,8vw,76px)/1.1 Arial;
+  letter-spacing:clamp(3px,1vw,10px);
+  color:#ffe1fa;
+  text-shadow:0 0 20px #ff8fe1,0 0 55px #9e65ff;
+  opacity:0;
+  transform:scale(.4);
+  transition:opacity .8s,transform .8s;
+}
+.word-result.show {opacity:1;transform:scale(1)}
+.break-caption {color:#e5d6ff;line-height:1.8}
+.break-actions {display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+footer {
+  text-align:center;
+  padding:65px 15px 80px;
+  color:#c8b9df;
+  border-top:1px solid #ffffff18;
+}
+footer strong {
+  display:block;
+  color:#ffd0ed;
+  font-size:22px;
+  font-weight:normal;
+  margin-bottom:12px;
+}
+
+@media(max-width:600px) {
+  nav {gap:0;justify-content:space-around}
+  nav a {font-size:10px;padding:9px 7px}
+  .letter {font-size:16px}
+  .ghost {font-size:32px}
+}
+@media(prefers-reduced-motion:reduce) {
+  .nebula,.star,.orbit,.flower,.ghost,
+  #explorePage:before,#breakdownPage:before,
+  .explore-orb,.purple-glow {animation:none!important}
+}
+</style>
+</head>
+
+<body>
+
+<div id="sky"></div>
+<div id="stars"></div>
+<div class="nebula n1"></div>
+<div class="nebula n2"></div>
+
+<!-- PASSWORD SCREEN -->
+<div id="lock">
+  <div class="lockbox">
+    <div class="lockicon">🔐✨</div>
+    <div class="eyebrow">A little world made of memories</div>
+    <h2>Only the stars know</h2>
+    <p>This little galaxy has a secret entrance.<br>Enter the password.</p>
+    <input id="pass" type="password" placeholder="Enter password">
+    <button onclick="unlock()">Open our little universe</button>
+    <p id="hint">Password: YYYY/MM/DD</p>
+  </div>
+</div>
+
+<nav>
+  <a href="#home">HOME</a>
+  <a href="#letters">LETTERS</a>
+  <a href="#memories">DREAM</a>
+  <a href="#bigReveal">REVEAL</a>
+  <a href="#gameSection">GAME</a>
+</nav>
+
+<div class="ghost">👻</div>
+
+<main>
+
+<header class="hero" id="home">
+  <div>
+    <div class="eyebrow">A universe somewhere far away</div>
+    <h1>Our Little<br>Galaxy</h1>
+    <p>অনেক দূরে, সব কোলাহল পেরিয়ে—একটা ছোট্ট পৃথিবী। যেখানে রাতের আকাশ, নীরবতা আর কিছু সুন্দর স্বপ্ন জমে থাকে।</p>
+    <div class="orbit"><div class="planet"></div></div>
+    <div class="scroll">SCROLL TO EXPLORE ✦</div>
+  </div>
+</header>
+
+<section id="letters">
+  <div class="section-tag">01 · A letter from the heart</div>
+  <h2>কিছু কথা, শুধু তোমার জন্য</h2>
+  <article class="card letter">
+    <div class="salute">প্রিয় Jim,</div>
+    তুমি আমার জীবনের খুব আপন একজন। তোমাকে আমি অনেক ভালোবাসি, কলিজা। আমার মনের অনেক কথা, অনেক স্বপ্ন—সবকিছুর মাঝেই তুমি আছো। তুমি আমার কাছে শুধু একজন মানুষ নও; তুমি আমার কল্পনা করা সুন্দর ভবিষ্যতের একটা বড় অংশ।
+    <br><br>
+    আমি চাই, একদিন আমাদের ছোট্ট একটা সংসার হোক। খুব বড় কিছু না—শুধু শান্ত একটা জায়গা, যেখানে আমরা নিজেদের মতো করে সময় কাটাতে পারব। দিনের শেষে ছাদে বসে চাঁদ দেখব, গল্প করব, আর চারপাশের নীরবতা উপভোগ করব।
+    <br><br>
+    আমার কল্পনার সেই জায়গাটা বরফের মতো সাদা, চারপাশে সুন্দর গাছপালা আর ঘন বন। মানুষের ভিড় কম, প্রকৃতির সৌন্দর্য বেশি। একটা ছোট্ট уютপূর্ণ বাড়ি, জানালায় উষ্ণ আলো, আর মাথার ওপরে তারাভরা আকাশ।
+    <br><br>
+    জানি না ভবিষ্যৎ ঠিক কেমন হবে। তবে এই স্বপ্নটা আমার কাছে অনেক মূল্যবান। তোমাকে নিয়ে কল্পনা করা এই ছোট্ট পৃথিবীটা আমার মনের খুব সুন্দর একটা জায়গা।
+    <div class="signature">— Tanvir</div>
+  </article>
+</section>
+
+<section id="memories">
+  <div class="section-tag">02 · The dream map</div>
+  <h2>আমাদের কল্পনার ছোট্ট পৃথিবী</h2>
+  <div class="grid">
+
+    <div class="card memory" tabindex="0">
+      <div class="emoji">🏡</div>
+      <h3>একটা ছোট্ট বাড়ি</h3>
+      <p>জানালায় নরম আলো, শান্ত একটা ঘর, আর নিজের মতো করে সাজানো ছোট্ট সংসার।</p>
+      <span class="explore-hint">✦ CLICK TO EXPLORE</span>
+    </div>
+
+    <div class="card memory" tabindex="0">
+      <div class="emoji">🌙</div>
+      <h3>চাঁদনী রাত</h3>
+      <p>ছাদের ওপরে বসে আকাশ দেখা। কোনো তাড়া নেই, শুধু গল্প আর নীরবতা।</p>
+      <span class="explore-hint">✦ CLICK TO EXPLORE</span>
+    </div>
+
+    <div class="card memory" tabindex="0">
+      <div class="emoji">❄️</div>
+      <h3>বরফের বন</h3>
+      <p>সাদা বরফে ঢাকা পাইন গাছ, দূরে পাহাড়, আর কুয়াশার ভেতর হারিয়ে যাওয়া পথ।</p>
+      <span class="explore-hint">✦ CLICK TO EXPLORE</span>
+    </div>
+
+    <div class="card memory" tabindex="0">
+      <div class="emoji">🌲</div>
+      <h3>নিরিবিলি প্রকৃতি</h3>
+      <p>মানুষের কোলাহল থেকে দূরে, সবুজ আর সাদা রঙে ভরা এক সুন্দর দৃশ্য।</p>
+      <span class="explore-hint">✦ CLICK TO EXPLORE</span>
+    </div>
+
+    <div class="card memory" tabindex="0">
+      <div class="emoji">💌</div>
+      <h3>অনেক চিঠি</h3>
+      <p>কিছু কথা মুখে বলা যায় না। তাই সেগুলো জমা থাকুক ছোট ছোট চিঠিতে।</p>
+      <span class="explore-hint">✦ CLICK TO EXPLORE</span>
+    </div>
+
+    <div class="card memory" tabindex="0">
+      <div class="emoji">✨</div>
+      <h3>একটা স্বপ্ন</h3>
+      <p>ভবিষ্যৎ যেমনই হোক, সুন্দর স্বপ্ন দেখতে পারাটাও জীবনের একটা আনন্দ।</p>
+      <span class="explore-hint">✦ CLICK TO EXPLORE</span>
+    </div>
+
+  </div>
+</section>
+
+<section>
+  <div class="card">
+    <div class="quote">
+      “পৃথিবীটা যত বড়ই হোক, মনের ভেতর কিছু মানুষের জন্য আলাদা একটা ছোট্ট জায়গা থেকে যায়।”
+      <small>A NOTE FROM TANVIR</small>
+    </div>
+  </div>
+</section>
+
+<section id="bigReveal">
+  <div class="reveal-stage">
+    <div class="section-tag">03 · The galaxy moment</div>
+    <div class="reveal-line" id="tanvir" style="font-size:clamp(38px,9vw,90px);color:#ffb9e7">TANVIR</div>
+    <div class="reveal-line" id="plus" style="font-size:clamp(40px,8vw,75px);color:#b8a5ff">+</div>
+    <div class="reveal-line" id="jim" style="font-size:clamp(38px,9vw,90px);color:#a8eaff">JIM</div>
+    <div class="reveal-line" id="equation">=</div>
+    <div class="reveal-line" id="result">TIYASHA</div>
+    <p style="color:#d9cbea;line-height:1.8">তিনটি নাম, একটুকরো স্বপ্নের গল্প।</p>
+    <button class="replay" onclick="playReveal()">↻ Replay animation</button>
+    <button class="replay" onclick="openBreakdown()">✦ Break down the names</button>
+  </div>
+</section>
+
+<section id="gameSection">
+  <div class="section-tag">04 · A tiny star game</div>
+  <h2>Catch the falling stars ✨</h2>
+  <div class="card game-wrap">
+    <p>তারাগুলোতে ট্যাপ করো বা ক্লিক করো। ২০ সেকেন্ডে যত পারো সংগ্রহ করো!</p>
+    <div id="score">Stars: 0</div>
+    <canvas id="game" width="650" height="300"></canvas>
+    <button class="game-btn" id="startGame" onclick="startGame()">Start the game</button>
+    <p id="gameMsg">Ready when you are 🌟</p>
+  </div>
+</section>
+
+<section>
+  <div class="section-tag">05 · One last little note</div>
+  <h2>শেষ পাতার কথা</h2>
+  <div class="card letter" style="text-align:center">
+    <div style="font-size:40px">🌌 💗 🌙</div>
+    কিছু স্বপ্ন খুব নীরবে জন্ম নেয়। এই ওয়েবসাইটটা তেমনই একটা স্বপ্নের ছোট্ট স্মারক—একটা galaxy, কয়েকটা চিঠি, কিছু ফুল, আর মনের ভেতর জমে থাকা কথা।
+    <div class="signature" style="text-align:center">With a little universe of feelings.</div>
+  </div>
+</section>
+
+</main>
+
+<!-- MEMORY EXPLORER PAGE -->
+<div id="explorePage">
+  <div class="explore-shell">
+    <div class="explore-orb"></div>
+    <div class="section-tag">A little galaxy to explore</div>
+    <h2 id="exploreTitle">A little memory</h2>
+    <div class="explore-copy" id="exploreCopy"></div>
+    <button class="close-galaxy" onclick="closeExplore()">← Back to our galaxy</button>
+  </div>
+</div>
+
+<!-- NAME BREAKDOWN PAGE -->
+<div id="breakdownPage">
+  <div class="purple-glow"></div>
+  <div class="break-shell">
+    <div class="break-title">A name written in starlight</div>
+    <h2 style="margin:12px 0;color:white">Two names · One little universe</h2>
+
+    <div id="letterStage">
+      <div class="drop-row" id="tanvirLetters"></div>
+      <div class="word-result" id="tanvirWord">TANVIR</div>
+      <div class="drop-row" id="jimLetters"></div>
+      <div class="word-result" id="jimWord">JIM</div>
+    </div>
+
+    <p class="break-caption">একটি একটি করে অক্ষর নেমে আসবে, তারপর একসাথে তৈরি হবে নাম দুটো। ✨</p>
+
+    <div class="break-actions">
+      <button class="close-galaxy" onclick="playBreakdown()">↻ Play again</button>
+      <button class="close-galaxy" onclick="closeBreakdown()">← Back to galaxy</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <strong>Made by Tiyasha's Father</strong>
+  Built with stars, memories & a little imagination ✦
+</footer>
+
+<script>
+// CREATE STARS
+const starLayer = document.getElementById('stars');
+
+for(let i=0;i<150;i++){
+  const s=document.createElement('i');
+  s.className='star';
+  s.style.left=Math.random()*100+'%';
+  s.style.top=Math.random()*100+'%';
+  s.style.setProperty('--t',(1.5+Math.random()*4)+'s');
+  starLayer.appendChild(s);
+}
+
+// FLOWER RAIN
+const petals=['🌸','🌷','🌺','✿','❀'];
+
+function flower(){
+  const f=document.createElement('span');
+  f.className='flower';
+  f.textContent=petals[Math.floor(Math.random()*petals.length)];
+  f.style.left=Math.random()*100+'vw';
+  f.style.fontSize=(13+Math.random()*19)+'px';
+  f.style.animationDuration=(7+Math.random()*8)+'s';
+  f.style.setProperty('--drift',(Math.random()*180-90)+'px');
+  document.body.appendChild(f);
+  setTimeout(()=>f.remove(),16000);
+}
+setInterval(flower,650);
+
+// PASSWORD
+const PASSWORD='2026/08/11';
+
+function unlock(){
+  const val=document.getElementById('pass').value.trim();
+
+  if(val===PASSWORD){
+    document.getElementById('lock').style.display='none';
+    sessionStorage.setItem('galaxyUnlocked','yes');
+    playReveal();
+  }else{
+    document.getElementById('hint').textContent='Wrong password. Try again.';
+    document.getElementById('pass').value='';
+  }
+}
+
+document.getElementById('pass').addEventListener('keydown',e=>{
+  if(e.key==='Enter') unlock();
+});
+
+if(sessionStorage.getItem('galaxyUnlocked')==='yes'){
+  document.getElementById('lock').style.display='none';
+}
+
+// MAIN NAME REVEAL
+let revealTimer=[];
+
+function playReveal(){
+  revealTimer.forEach(clearTimeout);
+
+  const ids=['tanvir','plus','jim','equation','result'];
+
+  ids.forEach(id=>{
+    const el=document.getElementById(id);
+    el.classList.remove('show');
+    void el.offsetWidth;
+  });
+
+  ids.forEach((id,i)=>{
+    revealTimer.push(setTimeout(()=>{
+      document.getElementById(id).classList.add('show');
+    },1000+i*2200));
+  });
+}
+
+// GALAXY MEMORY EXPLORER
+const dreamDetails=[
+  ['একটা ছোট্ট বাড়ি','জানালার পাশে উষ্ণ আলো, বাইরে নীরব রাত। এই ছোট্ট বাড়ির প্রতিটি কোণে থাকবে শান্তি, যত্ন আর একসাথে গড়ে তোলা সুন্দর স্মৃতি।'],
+  ['চাঁদনী রাত','চাঁদের আলোয় ছাদে বসে গল্প করা—সময় যেন একটু থেমে যায়। আকাশের প্রতিটি তারা মনে করিয়ে দেবে, ছোট মুহূর্তও কত সুন্দর হতে পারে।'],
+  ['বরফের বন','সাদা বরফে ঢাকা পাইন গাছ, দূরের পাহাড় আর নরম কুয়াশা। প্রকৃতির মাঝে এক শান্ত, স্বপ্নের মতো জায়গা।'],
+  ['নিরিবিলি প্রকৃতি','সবুজ গাছ, ঠান্ডা বাতাস আর পাখির ডাক। কোলাহল থেকে দূরে নিজের মতো করে নিঃশ্বাস নেওয়ার একটুকরো পৃথিবী।'],
+  ['অনেক চিঠি','কিছু অনুভূতি মুখে বলা কঠিন। তাই ছোট ছোট চিঠিতে জমে থাকুক মনের কথা, যত্ন আর কৃতজ্ঞতা।'],
+  ['একটা স্বপ্ন','ভবিষ্যৎ অনিশ্চিত হলেও সুন্দর স্বপ্ন দেখা যায়। প্রতিটি ভালো সিদ্ধান্ত সেই স্বপ্নের দিকে ছোট্ট এক ধাপ।']
+];
+
+function openExplore(index){
+  const item=dreamDetails[index];
+  if(!item)return;
+
+  document.getElementById('exploreTitle').textContent=item[0];
+  document.getElementById('exploreCopy').textContent=item[1];
+
+  document.getElementById('explorePage').classList.add('active');
+}
+
+function closeExplore(){
+  document.getElementById('explorePage').classList.remove('active');
+}
+
+document.querySelectorAll('.memory').forEach((card,index)=>{
+  card.addEventListener('click',()=>openExplore(index));
+
+  card.addEventListener('keydown',e=>{
+    if(e.key==='Enter'||e.key===' '){
+      e.preventDefault();
+      openExplore(index);
+    }
+  });
+});
+
+// NAME BREAKDOWN ANIMATION
+let breakdownTimers=[];
+let audioContext=null;
+
+function softLandingSound(){
+  try{
+    audioContext=audioContext||new(window.AudioContext||window.webkitAudioContext)();
+
+    if(audioContext.state==='suspended'){
+      audioContext.resume();
+    }
+
+    const osc=audioContext.createOscillator();
+    const gain=audioContext.createGain();
+
+    osc.type='sine';
+    osc.frequency.setValueAtTime(150,audioContext.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(65,audioContext.currentTime+.12);
+
+    gain.gain.setValueAtTime(.0001,audioContext.currentTime);
+    gain.gain.exponentialRampToValueAtTime(.12,audioContext.currentTime+.015);
+    gain.gain.exponentialRampToValueAtTime(.0001,audioContext.currentTime+.18);
+
+    osc.connect(gain);
+    gain.connect(audioContext.destination);
+
+    osc.start();
+    osc.stop(audioContext.currentTime+.19);
+  }catch(err){}
+}
+
+function clearBreakdownTimers(){
+  breakdownTimers.forEach(clearTimeout);
+  breakdownTimers=[];
+}
+
+function animateLetters(containerId,word,resultId,startDelay){
+  const container=document.getElementById(containerId);
+  const result=document.getElementById(resultId);
+
+  container.innerHTML='';
+  result.classList.remove('show');
+
+  [...word].forEach((letter,index)=>{
+    const span=document.createElement('span');
+
+    span.className='drop-letter';
+    span.textContent=letter;
+    container.appendChild(span);
+
+    breakdownTimers.push(setTimeout(()=>{
+      span.classList.add('fall');
+      softLandingSound();
+    },startDelay+index*430));
+  });
+
+  breakdownTimers.push(setTimeout(()=>{
+    result.classList.add('show');
+  },startDelay+word.length*430+500));
+}
+
+function openBreakdown(){
+  document.getElementById('breakdownPage').classList.add('active');
+  playBreakdown();
+}
+
+function closeBreakdown(){
+  clearBreakdownTimers();
+  document.getElementById('breakdownPage').classList.remove('active');
+}
+
+function playBreakdown(){
+  clearBreakdownTimers();
+
+  animateLetters('tanvirLetters','TANVIR','tanvirWord',450);
+
+  animateLetters(
+    'jimLetters',
+    'JIM',
+    'jimWord',
+    450+6*430+1500
+  );
+}
+
+// ESCAPE TO CLOSE
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){
+    closeExplore();
+    closeBreakdown();
+  }
+});
+
+// STAR CATCHING GAME
+const canvas=document.getElementById('game');
+const ctx=canvas.getContext('2d');
+
+let targets=[];
+let score=0;
+let running=false;
+let endAt=0;
+let raf=0;
+
+function resizeGame(){
+  const ratio=Math.max(1,window.devicePixelRatio||1);
+  const w=Math.max(1,canvas.clientWidth);
+
+  canvas.width=Math.round(w*ratio);
+  canvas.height=Math.round(300*ratio);
+
+  ctx.setTransform(ratio,0,0,ratio,0,0);
+  drawStaticGame();
+}
+
+function drawStaticGame(){
+  const w=canvas.clientWidth||650;
+
+  ctx.clearRect(0,0,w,300);
+  ctx.fillStyle='white';
+  ctx.font='18px serif';
+
+  ctx.fillText('✦',w*.18,55);
+  ctx.fillText('✧',w*.78,85);
+  ctx.fillText('⋆',w*.55,230);
+}
+
+window.addEventListener('resize',resizeGame);
+resizeGame();
+
+function spawnTarget(){
+  const w=canvas.clientWidth||650;
+
+  targets.push({
+    x:22+Math.random()*Math.max(1,w-44),
+    y:-18,
+    r:12+Math.random()*7,
+    v:1.3+Math.random()*1.8,
+    tw:Math.random()*6
+  });
+}
+
+function drawGame(){
+  const w=canvas.clientWidth||650;
+
+  ctx.clearRect(0,0,w,300);
+  ctx.fillStyle='white';
+  ctx.font='18px serif';
+
+  ctx.fillText('✦',w*.18,55);
+  ctx.fillText('✧',w*.78,85);
+  ctx.fillText('⋆',w*.55,230);
+
+  targets.forEach(t=>{
+    ctx.save();
+    ctx.translate(t.x,t.y);
+    ctx.rotate(t.tw);
+    ctx.shadowBlur=18;
+    ctx.shadowColor='#ffe4a3';
+    ctx.fillStyle='#ffe9a8';
+    ctx.font=(t.r*2)+'px serif';
+    ctx.textAlign='center';
+    ctx.fillText('★',0,t.r/2);
+    ctx.restore();
+
+    t.y+=t.v;
+    t.tw+=.02;
+  });
+
+  targets=targets.filter(t=>t.y<320);
+
+  if(!running)return;
+
+  if(Date.now()>=endAt){
+    running=false;
+    document.getElementById('gameMsg').textContent=
+      'Time! You collected '+score+' stars. ✨';
+
+    document.getElementById('startGame').textContent='Play again';
+    return;
+  }
+
+  if(Math.random()<.045)spawnTarget();
+
+  raf=requestAnimationFrame(drawGame);
+}
+
+function startGame(){
+  cancelAnimationFrame(raf);
+
+  targets=[];
+  score=0;
+  running=true;
+  endAt=Date.now()+20000;
+
+  document.getElementById('score').textContent='Stars: 0';
+  document.getElementById('gameMsg').textContent='Go go go! ✨';
+  document.getElementById('startGame').textContent='Game running…';
+
+  drawGame();
+}
+
+canvas.addEventListener('pointerdown',e=>{
+  if(!running)return;
+
+  const rect=canvas.getBoundingClientRect();
+
+  const x=(e.clientX-rect.left)*(canvas.clientWidth/rect.width);
+  const y=(e.clientY-rect.top)*(300/rect.height);
+
+  for(let i=targets.length-1;i>=0;i--){
+    const t=targets[i];
+
+    if(Math.hypot(t.x-x,t.y-y)<t.r+18){
+      targets.splice(i,1);
+      score++;
+
+      document.getElementById('score').textContent='Stars: '+score;
+      break;
+    }
+  }
+});
+</script>
+
+</body>
+</html>
